@@ -19,6 +19,8 @@ async def pseudoSplash(page: ft.Page, sleepTime: 3):
     page.controls.pop()
 
 async def home(page: ft.Page):
+    page.padding = ft.padding.only(0, 0, 0, 0)
+
     page.appbar = ft.AppBar(
         leading=ft.Icon(ft.icons.HOME),
         leading_width=40,
@@ -51,26 +53,31 @@ async def home(page: ft.Page):
     page.add(
         ft.SafeArea(
             ft.Column(
+                [ft.Text("Please load an Excel file to start"),
+                filePick_Btn,
+                selected_files],
                 expand=False,
-                controls=[
-                    ft.Text("Please load an Excel file to start"),
-                    filePick_Btn,
-                    selected_files
-                ]
+                width=SCREEN_WIDTH,
+                height=SCREEN_HEIGHT,
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER
             )
         )
     )
 
-
+SCREEN_WIDTH = 366
+SCREEN_HEIGHT = 813.6
 async def main(page: ft.Page):
     page.title = "XlsxAudit"
     page.theme_mode = ft.ThemeMode.LIGHT
 
-    page.window.width = 366
-    page.window.height = 813.6
+    page.window.width = SCREEN_WIDTH
+    page.window.height = SCREEN_HEIGHT
     
     page.padding = ft.padding.only(108, 331.8, 0, 0)
     page.bgcolor = "#9ad6bb"
+
+    page.window.maximizable = False
 
     await pseudoSplash(page, 0)
     await home(page)
